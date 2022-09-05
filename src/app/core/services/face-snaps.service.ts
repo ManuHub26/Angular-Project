@@ -26,11 +26,11 @@ export class FaceSnapsService {
     snapType: 'snap' | 'unsnap'
   ): Observable<FaceSnap> {
     return this.getFaceSnapById(faceSnapId).pipe(
-      map((faceSnap) => ({
+      map((faceSnap: any) => ({
         ...faceSnap,
         snaps: faceSnap.snaps + (snapType === 'snap' ? 1 : -1),
       })),
-      switchMap((updatedFaceSnap) =>
+      switchMap((updatedFaceSnap: any) =>
         this.http.put<FaceSnap>(
           `http://localhost:3000/facesnaps/${faceSnapId}`,
           updatedFaceSnap
@@ -46,15 +46,17 @@ export class FaceSnapsService {
     location?: string;
   }): Observable<FaceSnap> {
     return this.getAllFaceSnaps().pipe(
-      map((faceSnap) => [...faceSnap].sort((a, b) => a.id - b.id)),
-      map((sortedFacesnaps) => sortedFacesnaps[sortedFacesnaps.length - 1]),
-      map((previousFacesnaps) => ({
+      map((faceSnap: any) => [...faceSnap].sort((a, b) => a.id - b.id)),
+      map(
+        (sortedFacesnaps: any) => sortedFacesnaps[sortedFacesnaps.length - 1]
+      ),
+      map((previousFacesnaps: any) => ({
         ...formValue,
         snaps: 0,
         createdDate: new Date(),
         id: previousFacesnaps.id + 1,
       })),
-      switchMap((newFaceSnap) =>
+      switchMap((newFaceSnap: any) =>
         this.http.post<FaceSnap>('http://localhost:3000/facesnaps', newFaceSnap)
       )
     );

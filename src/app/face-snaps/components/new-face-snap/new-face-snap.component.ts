@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { map, Observable, tap } from 'rxjs';
 import { FaceSnap } from '../../../core/models/face-snap.model';
@@ -11,12 +11,12 @@ import { FaceSnapsService } from '../../../core/services/face-snaps.service';
   styleUrls: ['./new-face-snap.component.scss'],
 })
 export class NewFaceSnapComponent implements OnInit {
-  snapForm!: FormGroup;
+  snapForm!: UntypedFormGroup;
   faceSnapPreview$!: Observable<FaceSnap>;
   urlRegex!: RegExp;
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private faceSnapService: FaceSnapsService,
     private router: Router
   ) {}
